@@ -44,6 +44,9 @@
         
         
       }
+      .mu{
+        align-items: start;
+      }
       .Myheader p {
         font-size: 25px;
         font-weight: 600;
@@ -85,7 +88,7 @@
 
       .myVideo {
         position: absolute;
-        bottom: 20px;
+        top: 20px;
         right: 20px;
         width: 150px;
         height: 100px;
@@ -214,7 +217,11 @@
       <button id="startRecord">Start Rec</button>
       <button id="stopRecord" disabled>Stop Rec</button>
       <a id="downloadLink" style="display: none">Download Recording</a>
-      <a href="videos.html">View Uploaded Videos</a>
+     <span><a href="videos.html">View Uploaded Videos</a></span> 
+     
+    </div>
+    <div class="mu">
+      <button id="muteButton" class="mute">Mute</button>
     </div>
   
 
@@ -224,7 +231,7 @@
        
         <video id="localVideo" class="myVideo" autoplay playsinline muted></video>
         <video id="remoteVideo" autoplay playsinline></video>
-        <button id="muteButton" class="mute">Mute</button>
+        
         
         <div id="videoUnavailable" style="display: none">
           Video is not available
@@ -351,7 +358,10 @@ startRecordButton.addEventListener("click", () => {
     }
 
     recordedChunks = []; // Reset previous recordings
-    mediaRecorder = new MediaRecorder(localStream, { mimeType: "video/webm" });
+
+    // which stream to record ------------------------------------------------------------
+    // mediaRecorder = new MediaRecorder(localStream, { mimeType: "video/webm" });
+    mediaRecorder = new MediaRecorder(remoteStream, { mimeType: "video/webm" });
 
     console.log("✅ Recording started...");
 
