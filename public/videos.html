@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recorded Videos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="Myheader">
+        <a href="index.html"><img  src="./logo.jpg" alt="logo" /></a>  
+        <p>Berryyctcamspy</p>
+        
+      </div>
+    <h2>Uploaded Videos</h2>
+    <ul class="vidlist" id="videoList"></ul>
+
+    <script>
+        async function fetchVideos() {
+            const response = await fetch("/videos");
+            const videos = await response.json();
+            const videoList = document.getElementById("videoList");
+            videoList.innerHTML = "";
+
+            videos.forEach(video => {
+                const listItem = document.createElement("li");
+                const videoElement = document.createElement("video");
+                videoElement.src = `/uploads/${video}`;
+                videoElement.controls = true; // Enable playback controls
+                videoElement.width = 300;
+
+                listItem.appendChild(videoElement);
+                videoList.appendChild(listItem);
+            });
+        }
+
+        fetchVideos();
+    </script>
+</body>
+</html>

@@ -21,6 +21,21 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
+app.get("/videos", (req, res) => {
+  const uploadPath = path.join(__dirname, "uploads");
+
+  if (!fs.existsSync(uploadPath)) {
+    return res.json([]);
+  }
+
+  fs.readdir(uploadPath, (err, files) => {
+    if (err) {
+      return res.status(500).json({ error: "Failed to read directory" });
+    }
+    res.json(files);
+  });
+});
+
 let rooms = {};
 
 io.on("connection", (socket) => {
